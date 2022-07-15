@@ -38,11 +38,21 @@ class ItemDetailFragment : Fragment() {
             binding.itemCount.text = item.quantityInStock.toString()
 
             sellItem.isEnabled = viewModel.isStockAvailable(item)
-            sellItem.setOnClickListener{ viewModel.sellItem(item)}
+            sellItem.setOnClickListener{ viewModel.sellItem(item) }
 
-            deleteItem.setOnClickListener{showConfirmationDialog()}
+            deleteItem.setOnClickListener { showConfirmationDialog() }
+
+            editItem.setOnClickListener { editItem() }
         }
 
+    }
+
+    private fun editItem(){
+        val action = ItemDetailFragmentDirections.actionItemDetailFragmentToAddItemFragment(
+            getString(R.string.edit_fragment_title),
+            item.id
+        )
+        this.findNavController().navigate(action)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
